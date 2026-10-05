@@ -72,7 +72,7 @@ Judul seri (per basa):
 
 ## Salasa — Produktivitas Pribadi
 
-- [ ] Tilu cara ngeureunkeun pagawéan anu sok katalangsara
+- [x] 2026-10-06 — Tilu cara ngeureunkeun pagawéan anu sok katalangsara
 - [ ] Nyusun daptar tugas anu réalistis (jeung anu teu)
 - [ ] Ngokolakeun waktos antara pagawéan kantor jeung urusan pribadi
 - [ ] Nyatet ide gancang supaya teu poho
