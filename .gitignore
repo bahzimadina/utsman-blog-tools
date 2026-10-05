@@ -1,0 +1,5 @@
+# eusi anu diundeur / dihasilkeun (sanes sumber)
+repo/
+out/
+*.log
+__pycache__/
