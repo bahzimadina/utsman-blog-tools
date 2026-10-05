@@ -170,6 +170,9 @@ def parse_post(path, nama):
         "ringkas": ringkas, "tags": [str(t) for t in tags], "isi": isi,
         "cover": meta.get("cover") or "", "draft": bool(meta.get("draft")), "berkas": nama,
         "pair": str(meta.get("pair") or "").strip(),
+        "series": str(meta.get("series") or "").strip(),
+        "series_title": str(meta.get("series_title") or "").strip(),
+        "part": int(meta.get("part") or 0),
         "menit": max(1, round(len(teks.split()) / 200)),
     }
 
@@ -180,15 +183,24 @@ UI = {
     "id": {"blog": "Blog", "tagline": "Tulisan ringkas soal pekerjaan, organisasi, dan cara memakai asisten AI.",
            "latest": "Tulisan terbaru", "read": "Baca", "back": "← Kembali ke daftar tulisan", "home": "Beranda",
            "min": "menit baca", "newer": "Lebih baru", "older": "Lebih lama", "empty": "Tulisan pertama sedang disiapkan.",
-           "skip": "Lompat ke tulisan", "feed": "RSS", "navblog": "Blog", "kontak": "Email"},
+           "skip": "Lompat ke tulisan", "feed": "RSS", "navblog": "Blog", "kontak": "Email",
+           "prev": "Sebelumnya", "next": "Berikutnya", "page": "Halaman", "of": "dari",
+           "series": "Seri", "part": "Bagian", "allparts": "Semua bagian", "prevpart": "← Bagian sebelumnya",
+           "nextpart": "Bagian berikutnya →", "allposts": "Semua tulisan", "langlabel": "Baca dalam bahasa lain"},
     "en": {"blog": "Blog", "tagline": "Short pieces on work, organisations, and using an AI assistant.",
            "latest": "Latest posts", "read": "Read", "back": "← Back to all posts", "home": "Home",
            "min": "min read", "newer": "Newer", "older": "Older", "empty": "The first post is being prepared.",
-           "skip": "Skip to content", "feed": "RSS", "navblog": "Blog", "kontak": "Email"},
+           "skip": "Skip to content", "feed": "RSS", "navblog": "Blog", "kontak": "Email",
+           "prev": "Previous", "next": "Next", "page": "Page", "of": "of",
+           "series": "Series", "part": "Part", "allparts": "All parts", "prevpart": "← Previous part",
+           "nextpart": "Next part →", "allposts": "All posts", "langlabel": "Read in another language"},
     "su": {"blog": "Blog", "tagline": "Tulisan ringkes ngeunaan pagawéan, organisasi, jeung cara maké asisten AI.",
            "latest": "Tulisan panganyarna", "read": "Baca", "back": "← Balik ka daptar tulisan", "home": "Beranda",
            "min": "menit maca", "newer": "Leuwih anyar", "older": "Leuwih lami", "empty": "Tulisan munggaran nuju disiapkeun.",
-           "skip": "Luncat ka eusi", "feed": "RSS", "navblog": "Blog", "kontak": "Email"},
+           "skip": "Luncat ka eusi", "feed": "RSS", "navblog": "Blog", "kontak": "Email",
+           "prev": "Saméméhna", "next": "Salanjutna", "page": "Kaca", "of": "ti",
+           "series": "Seri", "part": "Bagian", "allparts": "Sadaya bagian", "prevpart": "← Bagian saméméhna",
+           "nextpart": "Bagian salanjutna →", "allposts": "Sadaya tulisan", "langlabel": "Baca dina basa séjén"},
 }
 
 HEADER = """<a class="skip" href="#main" data-blog="skip">{skip}</a>
@@ -226,6 +238,7 @@ FOOTER = """<footer class="site-footer">
   </div>
 </footer>
 <script>window.BLOG_UI = {ui_json};</script>
+<script>window.BLOG_ALTS = {alts_js};</script>
 <script src="/blog/blog.js?v=2" defer></script>
 </body>
 </html>"""
@@ -275,6 +288,31 @@ CSS = """/* Blog utsman.works — nambihan gaya di luhur /css/style.css */
 .post-foot { max-width: 42em; margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); }
 .post-nav { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; margin-top: 18px; font-size: 15.5px; }
 @media (max-width: 640px) { .post-card { padding: 22px 20px; } }
+
+/* paginasi */
+.pagination { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 26px; }
+.page-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 40px; height: 40px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink-soft);
+  font-size: 15px; font-weight: 600; box-shadow: var(--shadow-sm);
+}
+.page-btn:hover { color: var(--ink); transform: translateY(-1px); }
+.page-btn.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
+.page-btn.is-off { opacity: .45; box-shadow: none; }
+
+/* seri */
+.badge-seri { background: var(--ink); color: var(--gold-soft); border-color: var(--ink); }
+.seri-box { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 20px 22px; margin-bottom: 26px; box-shadow: var(--shadow-sm); }
+.seri-box h2 { font-size: 17px; margin: 0 0 12px; }
+.seri-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.seri-item { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border: 1px solid var(--line);
+  border-radius: 12px; background: var(--cream); font-size: 15px; }
+.seri-item span { color: var(--muted); font-size: 13.5px; }
+.seri-bar { margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center;
+  padding: 12px 16px; background: var(--gold-wash); border: 1px solid #efe2c2; border-radius: 14px; font-size: 15px; }
+.seri-nav { display: flex; flex-wrap: wrap; gap: 14px; }
 """
 
 JS = """// Blog utsman.works — basa UI + format tanggal (ngabagi setelan jeung situs utama)
@@ -323,7 +361,11 @@ JS = """// Blog utsman.works — basa UI + format tanggal (ngabagi setelan jeung
   document.querySelectorAll('.lang-btn').forEach(function (b) {
     b.addEventListener('click', function () {
       var l = norm(b.getAttribute('data-lang')) || 'id';
-      apply(l); tombol(l); tandaan(l);
+      var alts = window.BLOG_ALTS || {};
+      tandaan(l);
+      // Upami kaca ieu boga vérsi dina basa éta → pindah ka dinya (eusi robah)
+      if (alts[l] && alts[l] !== location.pathname) { location.href = alts[l]; return; }
+      apply(l); tombol(l);
     });
   });
   window.addEventListener('storage', function (e) { if (e.key === 'utsman-lang') { var l = norm(e.newValue) || 'id'; apply(l); tombol(l); } });
@@ -333,10 +375,32 @@ JS = """// Blog utsman.works — basa UI + format tanggal (ngabagi setelan jeung
 
 # ---------------------------------------------------------------- kaca
 
-def kaca(judul, deskripsi, kanonik, eusi, ui, lang="id", ld=None, tambahan=""):
-    ui = dict(ui)
+UKURAN_KACA = 5          # 5 artikel per halaman
+OG_LOCALE = {"id": "id_ID", "en": "en_US", "su": "su_ID"}
+BASA_URUT = ["id", "en", "su"]
+
+
+def url_index(lang, page=1):
+    dasar = "/blog/" if lang == "id" else f"/blog/{lang}/"
+    return dasar if page == 1 else f"{dasar}{page}/"
+
+
+def url_seri(lang, slug, page=1):
+    dasar = f"/blog/seri/{slug}/" if lang == "id" else f"/blog/{lang}/seri/{slug}/"
+    return dasar if page == 1 else f"{dasar}{page}/"
+
+
+def kaca(judul, deskripsi, kanonik, eusi, ui, lang="id", ld=None, tambahan="", alts=None):
     ld = ld or {}
+    alts = alts or {}
     jam = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>' if ld else ""
+    # hreflang: unggal basa + x-default ka basa Indonésia
+    alt = "".join(f'\n<link rel="alternate" hreflang="{l}" href="{SITE}{alts[l]}">'
+                  for l in BASA_URUT if l in alts and l != lang)
+    alt += f'\n<link rel="alternate" hreflang="{lang}" href="{kanonik}">'
+    if "id" in alts:
+        alt += f'\n<link rel="alternate" hreflang="x-default" href="{SITE}{alts["id"]}">'
+    og_type = "article" if ld.get("@type") == "BlogPosting" else "website"
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -348,21 +412,21 @@ def kaca(judul, deskripsi, kanonik, eusi, ui, lang="id", ld=None, tambahan=""):
 <link rel="alternate" type="application/rss+xml" title="Blog Utsman" href="{SITE}/blog/feed.xml">
 <meta name="theme-color" content="#101c33">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta property="og:type" content="{'article' if ld.get('@type') == 'BlogPosting' else 'website'}">
+<meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Utsman">
 <meta property="og:url" content="{kanonik}">
 <meta property="og:title" content="{html.escape(judul)}">
 <meta property="og:description" content="{html.escape(deskripsi)}">
 <meta property="og:image" content="{SITE}/assets/og-image.png">
+<meta property="og:locale" content="{OG_LOCALE.get(lang, 'id_ID')}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{html.escape(judul)}">
 <meta name="twitter:description" content="{html.escape(deskripsi)}">
 <meta name="twitter:image" content="{SITE}/assets/og-image.png">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#101c33">
 <link rel="stylesheet" href="/css/style.css?v={CSS_VER}">
-<link rel="stylesheet" href="/blog/blog.css?v=2">
-{jam}
+<link rel="stylesheet" href="/blog/blog.css?v=3">
+{jam}{alt}
 {tambahan}
 </head>
 <body>
@@ -370,7 +434,7 @@ def kaca(judul, deskripsi, kanonik, eusi, ui, lang="id", ld=None, tambahan=""):
 <main id="main">
 {eusi}
 </main>
-{FOOTER.format(ui_json=json.dumps(UI, ensure_ascii=False), **ui)}
+{FOOTER.format(ui_json=json.dumps(UI, ensure_ascii=False), alts_js=json.dumps(alts, ensure_ascii=False), **ui)}
 """
 
 
@@ -380,6 +444,13 @@ def tgl_id(dt):
     return f"{dt.day} {bulan[dt.month]} {dt.year}"
 
 
+def lencana_seri(p):
+    if not p.get("series"):
+        return ""
+    return (f'<span class="badge badge-seri"><span data-blog="series">Seri</span> · '
+            f'<span data-blog="part">Bagian</span> {p["part"] or 1}</span>')
+
+
 def kartu(p):
     tags = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in p["tags"])
     return f"""      <a class="post-card" href="/blog/{p['slug']}/">
@@ -387,6 +458,7 @@ def kartu(p):
         <div class="post-meta">
           <time datetime="{p['tanggal']:%Y-%m-%d}" data-post-date>{tgl_id(p['tanggal'])}</time>
           <span class="badge">{p['lang']}</span>
+          {lencana_seri(p)}
           <span>· {p['menit']} <span data-blog="min">menit baca</span></span>
         </div>
         <p>{html.escape(p['ringkas'])}</p>
@@ -394,7 +466,52 @@ def kartu(p):
       </a>"""
 
 
-def halaman_daftar(posts, ui):
+JUDUL_BASA = {"id": "Blog", "en": "Blog", "su": "Blog"}
+DESK_BASA = {
+    "id": "Tulisan ringkas soal pekerjaan kantor, urusan pribadi, dan organisasi — serta cara memakai asisten AI.",
+    "en": "Short pieces on office work, personal matters, and organisations — plus how to use an AI assistant.",
+    "su": "Tulisan ringkes ngeunaan pagawéan kantor, urusan pribadi, jeung organisasi — sarta cara maké asisten AI.",
+}
+
+
+def paginasi(lang, page_no, total, ui):
+    """Tautan pindah halaman (saméméhna / angka / salanjutna)."""
+    if total <= 1:
+        return ""
+    no = []
+    for i in range(1, total + 1):
+        if i == page_no:
+            no.append(f'<span class="page-btn is-on" aria-current="page">{i}</span>')
+        else:
+            no.append(f'<a class="page-btn" href="{url_index(lang, i)}">{i}</a>')
+    kiri = (f'<a class="page-btn" href="{url_index(lang, page_no - 1)}" data-blog="prev">Sebelumnya</a>'
+            if page_no > 1 else '<span class="page-btn is-off" data-blog="prev">Sebelumnya</span>')
+    kanan = (f'<a class="page-btn" href="{url_index(lang, page_no + 1)}" data-blog="next">Berikutnya</a>'
+             if page_no < total else '<span class="page-btn is-off" data-blog="next">Berikutnya</span>')
+    return (f'<nav class="pagination" aria-label="{ui.get("page", "Halaman")}">'
+            f'{kiri}{"".join(no)}{kanan}</nav>')
+
+
+def halaman_daftar(daftar, lang, page_no, total, semua, ui):
+    potongan = daftar[(page_no - 1) * UKURAN_KACA: page_no * UKURAN_KACA]
+    alts = {l: url_index(l, min(page_no, max(1, -(-len([q for q in semua if q["lang"] == l]) // UKURAN_KACA))))
+            for l in BASA_URUT}
+    judul = JUDUL_BASA[lang] + (f" — {ui['page']} {page_no}" if page_no > 1 else "")
+    seri_tbl = ""
+    if page_no == 1:
+        # daptar seri (upami aya) dina basa ieu
+        grup = {}
+        for q in semua:
+            if q["lang"] == lang and q.get("series"):
+                grup.setdefault(q["series"], {"judul": q.get("series_title") or q["series"], "n": 0})
+                grup[q["series"]]["n"] += 1
+        if grup:
+            item = "".join(f'<a class="seri-item" href="{url_seri(lang, sl)}">'
+                           f'<strong>{html.escape(v["judul"])}</strong>'
+                           f'<span>{v["n"]} <span data-blog="part">Bagian</span></span></a>'
+                           for sl, v in grup.items())
+            seri_tbl = (f'<div class="seri-box"><h2 data-blog="series">Seri</h2>'
+                        f'<div class="seri-grid">{item}</div></div>')
     isi = f"""  <section class="blog-hero">
     <div class="wrap">
       <h1 data-blog="blog">Blog</h1>
@@ -403,29 +520,27 @@ def halaman_daftar(posts, ui):
   </section>
   <section class="blog-list">
     <div class="wrap">
+      {seri_tbl}
       <h2 style="font-size:20px;margin:0 0 18px" data-blog="latest">{ui['latest']}</h2>
-{chr(10).join(kartu(p) for p in posts) if posts else f'      <p class="post-meta" data-blog="empty">{ui["empty"]}</p>'}
+{chr(10).join(kartu(p) for p in potongan) if potongan else f'      <p class="post-meta" data-blog="empty">{ui["empty"]}</p>'}
+      {paginasi(lang, page_no, total, ui)}
     </div>
   </section>"""
     ld = {"@context": "https://schema.org", "@type": "Blog", "name": "Blog Utsman",
-          "url": f"{SITE}/blog/", "inLanguage": "id-ID",
-          "blogPost": [{"@type": "BlogPosting", "headline": p["judul"],
-                        "url": f"{SITE}/blog/{p['slug']}/",
-                        "datePublished": p["tanggal"].strftime("%Y-%m-%d"),
-                        "inLanguage": p["lang"]} for p in posts[:10]]}
-    return kaca("Blog — Utsman", "Tulisan ringkas soal pekerjaan kantor, urusan pribadi, dan organisasi — serta cara memakai asisten AI.",
-                f"{SITE}/blog/", isi, ui, ld=ld)
+          "url": f"{SITE}{url_index(lang, page_no)}", "inLanguage": lang,
+          "blogPost": [{"@type": "BlogPosting", "headline": q["judul"],
+                        "url": f"{SITE}/blog/{q['slug']}/",
+                        "datePublished": q["tanggal"].strftime("%Y-%m-%d"),
+                        "inLanguage": q["lang"]} for q in potongan[:10]]}
+    return kaca(f"{judul} — Utsman", DESK_BASA[lang], f"{SITE}{url_index(lang, page_no)}",
+                isi, ui, lang=lang, ld=ld, alts=alts)
 
 
-def halaman_tulisan(p, prev_p, next_p, ui, lain=None):
+def halaman_tulisan(p, prev_p, next_p, lain, seri, ui):
     tags = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in p["tags"])
-    nav = ""
-    if next_p or prev_p:
-        kiri = f'<a href="/blog/{next_p["slug"]}/" data-blog="newer">Lebih baru</a> → {html.escape(next_p["judul"])}' if next_p else ""
-        kanan = f'← {html.escape(prev_p["judul"])}' if prev_p else ""
-        nav = f'<div class="post-nav"><span>{kiri}</span><span>{kanan}</span></div>'
-    lain = lain or []
-    # label tautan antarbasa, ditingali tina basa tulisan anu keur dibuka
+    alts = {q["lang"]: f"/blog/{q['slug']}/" for q in [p] + (lain or [])}
+
+    # tautan basa (sadaya vérsi anu aya)
     LABEL_KE = {
         ("id", "en"): "Baca vérsi basa Inggris",
         ("id", "su"): "Baca vérsi basa Sunda",
@@ -435,15 +550,34 @@ def halaman_tulisan(p, prev_p, next_p, ui, lain=None):
         ("su", "en"): "Baca vérsi basa Inggris",
     }
     NAMA_BASA = {"id": "Bahasa Indonesia", "en": "English", "su": "Basa Sunda"}
-    tautan_basa = ""
-    if lain:
-        kel = " · ".join(
-            f'<a href="/blog/{q["slug"]}/">{LABEL_KE.get((p["lang"], q["lang"]), "Baca vérsi " + NAMA_BASA[q["lang"]])}</a>'
-            for q in lain)
-        tautan_basa = f'<p class="post-lang" style="margin:14px 0 0;font-size:15.5px">{kel}</p>'
-    alt = "".join(f'\n<link rel="alternate" hreflang="{q["lang"]}" href="{SITE}/blog/{q["slug"]}/">' for q in [p] + lain)
-    alt += f'\n<link rel="alternate" hreflang="x-default" href="{SITE}/blog/{[q for q in [p] + lain if q["lang"] == "id"][0]["slug"] if any(q["lang"] == "id" for q in [p] + lain) else p["slug"]}/">'
-    cover = f'<img src="{html.escape(str(p["cover"]))}" alt="" width="1200" height="630" style="width:100%;height:auto;border-radius:16px;margin-bottom:26px">' if p["cover"] else ""
+    bagian_basa = ""
+    if alts and len(alts) > 1:
+        kel = " · ".join(f'<a href="/blog/{q["slug"]}/">{LABEL_KE.get((p["lang"], q["lang"]), "Baca vérsi " + NAMA_BASA[q["lang"]])}</a>'
+                         for q in lain or [])
+        bagian_basa = (f'<p class="post-lang" style="margin:14px 0 0;font-size:15.5px">'
+                       f'<span data-blog="langlabel">Baca dalam bahasa lain</span>: {kel}</p>')
+
+    # bagian seri
+    bagian_seri = ""
+    if seri and seri.get("slug"):
+        total = seri.get("total", 1)
+        potongan = " · ".join(t for t in [
+            f'<a href="/blog/{seri["sblm"]["slug"]}/" data-blog="prevpart">← Bagian sebelumnya</a>' if seri.get("sblm") else "",
+            f'<a href="{url_seri(p["lang"], seri["slug"])}" data-blog="allparts">Semua bagian</a>',
+            f'<a href="/blog/{seri["saurna"]["slug"]}/" data-blog="nextpart">Bagian berikutnya →</a>' if seri.get("saurna") else "",
+        ] if t)
+        bagian_seri = (f'<div class="seri-bar"><span class="badge badge-seri">'
+                       f'<span data-blog="series">Seri</span>: {html.escape(seri.get("judul") or seri["slug"])} · '
+                       f'<span data-blog="part">Bagian</span> {p["part"] or 1} / {total}</span>'
+                       f'<span class="seri-nav">{potongan}</span></div>')
+
+    nav = ""
+    if next_p or prev_p:
+        kiri = f'<a href="/blog/{next_p["slug"]}/" data-blog="newer">Lebih baru</a> → {html.escape(next_p["judul"])}' if next_p else ""
+        kanan = f'← {html.escape(prev_p["judul"])}' if prev_p else ""
+        nav = f'<div class="post-nav"><span>{kiri}</span><span>{kanan}</span></div>'
+    cover = (f'<img src="{html.escape(str(p["cover"]))}" alt="" width="1200" height="630" '
+             f'style="width:100%;height:auto;border-radius:16px;margin-bottom:26px">') if p["cover"] else ""
     isi = f"""  <article class="post">
     <div class="wrap">
       <div class="post-head">
@@ -453,7 +587,8 @@ def halaman_tulisan(p, prev_p, next_p, ui, lain=None):
           <span>· {p['menit']} <span data-blog="min">menit baca</span></span>
         </div>
         <h1 style="margin-top:14px">{html.escape(p['judul'])}</h1>
-        {tautan_basa}
+        {bagian_basa}
+        {bagian_seri}
         {cover}
       </div>
       <div class="post-body">
@@ -461,7 +596,7 @@ def halaman_tulisan(p, prev_p, next_p, ui, lain=None):
       </div>
       <div class="post-foot">
         {f'<div class="tagset">{tags}</div>' if tags else ''}
-        <p style="margin:18px 0 0"><a href="/blog/" data-blog="back">← Kembali ke daftar tulisan</a></p>
+        <p style="margin:18px 0 0"><a href="{url_index(p['lang'], 1)}" data-blog="back">← Kembali ke daftar tulisan</a></p>
         {nav}
       </div>
     </div>
@@ -470,35 +605,58 @@ def halaman_tulisan(p, prev_p, next_p, ui, lain=None):
           "description": p["ringkas"], "datePublished": p["tanggal"].strftime("%Y-%m-%d"),
           "inLanguage": p["lang"], "mainEntityOfPage": f"{SITE}/blog/{p['slug']}/",
           "author": {"@type": "Organization", "name": "Utsman", "url": SITE},
-          "publisher": {"@type": "Organization", "name": "Utsman", "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/favicon.svg"}},
+          "publisher": {"@type": "Organization", "name": "Utsman",
+                        "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/favicon.svg"}},
           "image": p["cover"] or f"{SITE}/assets/og-image.png"}
     if p["tags"]:
         ld["keywords"] = ", ".join(p["tags"])
+    if seri and seri.get("slug"):
+        ld["isPartOf"] = {"@type": "CreativeWorkSeries", "name": seri.get("judul") or seri["slug"],
+                          "url": f"{SITE}{url_seri(p['lang'], seri['slug'])}"}
     return kaca(f"{p['judul']} — Blog Utsman", p["ringkas"], f"{SITE}/blog/{p['slug']}/", isi, ui,
-                lang=p["lang"], ld=ld, tambahan=alt)
+                lang=p["lang"], ld=ld, alts=alts)
 
 
-def sitemap(posts):
-    tgl_index = (posts[0]["tanggal"] if posts else datetime.now()).strftime("%Y-%m-%d")
-    baris = [f'  <url><loc>{SITE}/blog/</loc><lastmod>{tgl_index}</lastmod>'
-             f'<changefreq>daily</changefreq><priority>0.8</priority></url>']
-    grup = {}
-    for p in posts:
-        if p["pair"]:
-            grup.setdefault(p["pair"], []).append(p)
-    for p in posts:
-        alt = ""
-        for q in [p] + [x for x in grup.get(p["pair"], []) if x is not p]:
-            alt += f'\n    <xhtml:link rel="alternate" hreflang="{q["lang"]}" href="{SITE}/blog/{q["slug"]}/"/>'
-        baris.append(f'  <url><loc>{SITE}/blog/{p["slug"]}/</loc><lastmod>{p["tanggal"]:%Y-%m-%d}</lastmod>'
-                     f'<changefreq>monthly</changefreq><priority>0.7</priority>{alt}\n  </url>')
+def halaman_seri(slug, judul, bagian, lang, ui, halaman=1):
+    total = len(bagian)
+    potongan = bagian[(halaman - 1) * UKURAN_KACA:halaman * UKURAN_KACA]
+    alts = {}
+    for l in BASA_URUT:
+        alts[l] = url_seri(l, slug)
+    isi = f"""  <section class="blog-hero">
+    <div class="wrap">
+      <p class="badge badge-seri" style="display:inline-block"><span data-blog="series">Seri</span></p>
+      <h1 style="margin-top:14px">{html.escape(judul)}</h1>
+      <p>{total} <span data-blog="part">Bagian</span></p>
+    </div>
+  </section>
+  <section class="blog-list">
+    <div class="wrap">
+{chr(10).join(kartu(p) for p in potongan)}
+    </div>
+  </section>"""
+    ld = {"@context": "https://schema.org", "@type": "CreativeWorkSeries", "name": judul,
+          "url": f"{SITE}{url_seri(lang, slug)}", "inLanguage": lang,
+          "hasPart": [{"@type": "BlogPosting", "headline": q["judul"], "position": q["part"],
+                       "url": f"{SITE}/blog/{q['slug']}/"} for q in bagian]}
+    return kaca(f"{judul} — Utsman", f"Seri {judul}: {total} bagian.", f"{SITE}{url_seri(lang, slug)}",
+                isi, ui, lang=lang, ld=ld, alts=alts)
+
+
+def sitemap(hasil_url, grup_basa):
+    baris = []
+    for u in hasil_url:
+        alt = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{l}" href="{SITE}{grup_basa[u][l]}"/>'
+                      for l in BASA_URUT if l in grup_basa.get(u, {}))
+        if "id" in grup_basa.get(u, {}):
+            alt += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{grup_basa[u]["id"]}"/>'
+        baris.append(f'  <url><loc>{SITE}{u}</loc><lastmod>{TANGGAL_BUILD}</lastmod>{alt}\n  </url>')
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
             'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(baris) + "\n</urlset>\n")
 
 
-def feed(posts, ui):
-    # deterministik: maké tanggal tulisan panganyarna (sanes waktos kiwari)
+def feed(posts, lang, ui):
     dasar = posts[0]["tanggal"] if posts else datetime.now()
     now = dasar.strftime("%a, %d %b %Y 07:00:00 +0700")
     item = "\n".join(f"""    <item>
@@ -508,21 +666,24 @@ def feed(posts, ui):
       <pubDate>{p['tanggal'].strftime('%a, %d %b %Y 07:00:00 +0700')}</pubDate>
       <description>{html.escape(p['ringkas'])}</description>
     </item>""" for p in posts[:30])
+    judul = {"id": "Blog Utsman", "en": "Utsman Blog", "su": "Blog Utsman"}[lang]
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-  <title>Blog Utsman</title>
-  <link>{SITE}/blog/</link>
+  <title>{judul}</title>
+  <link>{SITE}{url_index(lang, 1)}</link>
   <description>{html.escape(ui['tagline'])}</description>
-  <language>id-ID</language>
+  <language>{lang}</language>
   <lastBuildDate>{now}</lastBuildDate>
 {item}
 </channel></rss>
 """
 
 
-# ---------------------------------------------------------------- utama
+TANGGAL_BUILD = ""
+
 
 def main():
+    global TANGGAL_BUILD
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", default=DEFAULT_REPO)
     ap.add_argument("--out", default=DEFAULT_OUT)
@@ -539,26 +700,73 @@ def main():
         if not nama.endswith(".md") or nama.startswith("."):
             continue
         try:
-            p = parse_post(os.path.join(folder, nama), nama)
+            q = parse_post(os.path.join(folder, nama), nama)
         except Exception as e:
             print(f"! {nama} gagal diolah: {e}", file=sys.stderr)
             continue
-        (dilewatan if p["draft"] else posts).append(p)
-    posts.sort(key=lambda p: (p["tanggal"], p["berkas"]), reverse=True)
+        (dilewatan if q["draft"] else posts).append(q)
+    posts.sort(key=lambda q: (q["tanggal"], q["berkas"]), reverse=True)
+    TANGGAL_BUILD = (posts[0]["tanggal"] if posts else datetime.now()).strftime("%Y-%m-%d")
 
-    # --- hasil dihitung di memori, ditulis ukur lamun robah
-    hasil = {}
-    hasil["index.html"] = halaman_daftar(posts, UI["id"])
-    grup = {}
+    # grup tarjamahan (pair) jeung seri
+    grup_pair, grup_seri = {}, {}
     for q in posts:
         if q["pair"]:
-            grup.setdefault(q["pair"], []).append(q)
-    for i, p in enumerate(posts):
-        lain = [q for q in grup.get(p["pair"], []) if q is not p] if p["pair"] else []
-        hasil[f"{p['slug']}/index.html"] = halaman_tulisan(p, posts[i + 1] if i + 1 < len(posts) else None,
-                                                           posts[i - 1] if i > 0 else None, UI["id"], lain)
-    hasil["sitemap.xml"] = sitemap(posts)
-    hasil["feed.xml"] = feed(posts, UI["id"])
+            grup_pair.setdefault(q["pair"], []).append(q)
+        if q.get("series"):
+            grup_seri.setdefault((q["series"], q["lang"]), []).append(q)
+
+    hasil, kunci_url, grup_basa = {}, [], {}
+
+    # ---- kaca daptar per basa, dibagi 5 per halaman
+    for lang in BASA_URUT:
+        daftar = [q for q in posts if q["lang"] == lang]
+        total = max(1, -(-len(daftar) // UKURAN_KACA))
+        for hal in range(1, total + 1):
+            path = f"{url_index(lang, hal).lstrip('/')}index.html"
+            hasil[path] = halaman_daftar(daftar, lang, hal, total, posts, UI[lang])
+            kunci = url_index(lang, hal)
+            kunci_url.append(kunci)
+            grup_basa[kunci] = {l: url_index(l, min(hal, max(1, -(-len([z for z in posts if z["lang"] == l]) // UKURAN_KACA))))
+                                for l in BASA_URUT}
+        # RSS per basa
+        hasil[f"{url_index(lang, 1).lstrip('/')}feed.xml"] = feed(daftar, lang, UI[lang])
+
+    # ---- kaca tulisan
+    for i, q in enumerate(posts):
+        lain = [z for z in grup_pair.get(q["pair"], []) if z is not q] if q["pair"] else []
+        seri_info = {}
+        if q.get("series"):
+            bagian = sorted(grup_seri[(q["series"], q["lang"])], key=lambda z: (z["part"] or 1, z["tanggal"]))
+            idx = next((n for n, z in enumerate(bagian) if z is q), 0)
+            seri_info = {"slug": q["series"], "judul": q.get("series_title") or q["series"],
+                         "total": len(bagian),
+                         "sblm": bagian[idx - 1] if idx > 0 else None,
+                         "saurna": bagian[idx + 1] if idx + 1 < len(bagian) else None}
+        hasil[f"{q['slug']}/index.html"] = halaman_tulisan(
+            q, posts[i + 1] if i + 1 < len(posts) else None, posts[i - 1] if i > 0 else None, lain, seri_info, UI[q["lang"]])
+        kunci = f"/blog/{q['slug']}/"
+        kunci_url.append(kunci)
+        grup_basa[kunci] = {z["lang"]: f"/blog/{z['slug']}/" for z in [q] + lain}
+
+    # ---- kaca seri per basa
+    seri_urut = sorted({s for (s, _l) in grup_seri})
+    for slug in seri_urut:
+        for lang in BASA_URUT:
+            bagian = sorted(grup_seri.get((slug, lang), []), key=lambda z: (z["part"] or 1, z["tanggal"]))
+            if not bagian:
+                continue
+            judul = bagian[0].get("series_title") or slug
+            hal_total = max(1, -(-len(bagian) // UKURAN_KACA))
+            for hal in range(1, hal_total + 1):
+                path = f"{url_seri(lang, slug, hal).lstrip('/')}index.html"
+                hasil[path] = halaman_seri(slug, judul, bagian, lang, UI[lang], hal)
+            kunci = url_seri(lang, slug)
+            kunci_url.append(kunci)
+            grup_basa[kunci] = {l: url_seri(l, slug) for l in BASA_URUT if grup_seri.get((slug, l))}
+
+    # ---- sitemap
+    hasil["sitemap.xml"] = sitemap(kunci_url, grup_basa)
     hasil["blog.css"] = CSS
     hasil["blog.js"] = JS
 
@@ -566,36 +774,43 @@ def main():
     berkas_sidik = os.path.join(a.out, ".build-hash")
     sidik_lama = open(berkas_sidik).read().strip() if os.path.exists(berkas_sidik) else ""
 
-    # gambar (disalin saban jalan — murah)
     src_img = os.path.join(a.repo, "images")
-    ada_gambar = os.path.isdir(src_img)
-    if ada_gambar:
+    if os.path.isdir(src_img):
         os.makedirs(os.path.join(a.out, "images"), exist_ok=True)
         for f in os.listdir(src_img):
             if not f.startswith("."):
                 shutil.copy2(os.path.join(src_img, f), os.path.join(a.out, "images", f))
 
     if sidik == sidik_lama and not a.verbose:
-        return 0                                    # cicing — teu aya parobahan
+        return 0
 
-    # bersihkeun kaca tulisan anu tos teu aya
-    for d in os.listdir(a.out) if os.path.isdir(a.out) else []:
-        p = os.path.join(a.out, d)
-        if os.path.isdir(p) and d != "images" and f"{d}/index.html" not in hasil:
-            shutil.rmtree(p)
+    # bersihkeun kaca anu tos teu aya (nurut struktur polder)
+    if os.path.isdir(a.out):
+        dijaga = {os.path.dirname(p) for p in hasil if p.endswith("index.html")}
+        leluhur = set()
+        for p in dijaga:
+            bagian = p.split("/")
+            for n in range(1, len(bagian) + 1):
+                leluhur.add("/".join(bagian[:n]))
+        dijaga |= leluhur | {"images", ""}
+        for root, dirs, _files in os.walk(a.out, topdown=False):
+            rel = os.path.relpath(root, a.out)
+            if rel != "." and rel not in dijaga:
+                shutil.rmtree(root, ignore_errors=True)
 
-    os.makedirs(a.out, exist_ok=True)
     for path, isi in hasil.items():
         tujuan = os.path.join(a.out, path)
         os.makedirs(os.path.dirname(tujuan), exist_ok=True)
         open(tujuan, "w", encoding="utf-8").write(isi)
     open(berkas_sidik, "w").write(sidik)
 
-    print(f"Blog diropéa: {len(posts)} tulisan dipedalkeun"
+    per_basa = {l: len([q for q in posts if q["lang"] == l]) for l in BASA_URUT}
+    print(f"Blog diropéa: {len(posts)} tulisan ({', '.join(f'{k}: {v}' for k, v in per_basa.items())})"
           + (f", {len(dilewatan)} draf ditingaleun" if dilewatan else "")
-          + f". Kaca: /blog/ + {len(posts)} tulisan, sitemap + feed.")
-    for p in posts[:5]:
-        print(f"  · {p['tanggal']:%Y-%m-%d} [{p['lang']}] {p['judul']}")
+          + f". Kaca: {len([k for k in kunci_url if k.startswith('/blog/') and 'seri' not in k and k.count('/') <= 3])} daptar"
+          + f", {len(seri_urut)} seri, {len(posts)}+ tulisan.")
+    for q in posts[:6]:
+        print(f"  · {q['tanggal']:%Y-%m-%d} [{q['lang']}] {q['judul']}")
     return 0
 
 
