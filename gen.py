@@ -390,6 +390,12 @@ def url_seri(lang, slug, page=1):
     return dasar if page == 1 else f"{dasar}{page}/"
 
 
+def jalur(url):
+    """URL publik (/blog/xxx/) → jalur berkas dina folder out/ (xxx/index.html)."""
+    rel = url[len("/blog/"):] if url.startswith("/blog/") else url.lstrip("/")
+    return f"{rel}index.html"
+
+
 def kaca(judul, deskripsi, kanonik, eusi, ui, lang="id", ld=None, tambahan="", alts=None):
     ld = ld or {}
     alts = alts or {}
@@ -683,12 +689,14 @@ TANGGAL_BUILD = ""
 
 
 def main():
-    global TANGGAL_BUILD
+    global TANGGAL_BUILD, UKURAN_KACA
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", default=DEFAULT_REPO)
     ap.add_argument("--out", default=DEFAULT_OUT)
     ap.add_argument("--verbose", action="store_true")
+    ap.add_argument("--per-page", type=int, default=UKURAN_KACA, help="jumlah artikel per halaman")
     a = ap.parse_args()
+    UKURAN_KACA = max(1, int(a.per_page))
 
     folder = os.path.join(a.repo, "posts")
     if not os.path.isdir(folder):
@@ -723,14 +731,14 @@ def main():
         daftar = [q for q in posts if q["lang"] == lang]
         total = max(1, -(-len(daftar) // UKURAN_KACA))
         for hal in range(1, total + 1):
-            path = f"{url_index(lang, hal).lstrip('/')}index.html"
+            path = jalur(url_index(lang, hal))
             hasil[path] = halaman_daftar(daftar, lang, hal, total, posts, UI[lang])
             kunci = url_index(lang, hal)
             kunci_url.append(kunci)
             grup_basa[kunci] = {l: url_index(l, min(hal, max(1, -(-len([z for z in posts if z["lang"] == l]) // UKURAN_KACA))))
                                 for l in BASA_URUT}
         # RSS per basa
-        hasil[f"{url_index(lang, 1).lstrip('/')}feed.xml"] = feed(daftar, lang, UI[lang])
+        hasil[("" if lang == "id" else f"{lang}/") + "feed.xml"] = feed(daftar, lang, UI[lang])
 
     # ---- kaca tulisan
     for i, q in enumerate(posts):
@@ -759,7 +767,7 @@ def main():
             judul = bagian[0].get("series_title") or slug
             hal_total = max(1, -(-len(bagian) // UKURAN_KACA))
             for hal in range(1, hal_total + 1):
-                path = f"{url_seri(lang, slug, hal).lstrip('/')}index.html"
+                path = jalur(url_seri(lang, slug, hal))
                 hasil[path] = halaman_seri(slug, judul, bagian, lang, UI[lang], hal)
             kunci = url_seri(lang, slug)
             kunci_url.append(kunci)
