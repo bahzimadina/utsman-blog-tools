@@ -3,17 +3,20 @@
 Saban poé aya **pilar** (téma) dumasar poé. Saban tulisan ditulis dina **tilu basa**
 (id + en + su) jeung `pair:` anu sarua.
 
-| Poé | Pilar | Eusina |
-|---|---|---|
-| Senén | Administrasi & Organisasi | SOP, arsip, jadwal, laporan, rapat, data anggota |
-| Salasa | Produktivitas Pribadi | waktos, daptar tugas, fokus, suréléktronik, catetan |
-| Rebo | Téknologi & Asisten AI | agén, LLM, MCP, kanal, otomasi (asal bébas data rahasia) |
-| Kemis | **Tutorial: Nyiapkeun Asisten AI** (seri) | seri `setup-ai-agent`, unggal Kemis hiji bagian |
-| Juma'ah | Komunikasi & Nulis | pangumuman, surat, ringkesan, bahan pelatihan |
-| Saptu | Studi Kasus & Tips Praktis | conto pamakéan, kasalahan anu sering, tips |
-| Minggu | Ringkesan / Tanya-Jawab | rangkuman minggu, patarosan anu sering muncul |
+| Poé | Pilar | **Agén penulis** | Eusina |
+|---|---|---|---|
+| Senén | Administrasi & Organisasi | `lemur` | SOP, arsip, jadwal, laporan, rapat, data anggota |
+| Salasa | Produktivitas Pribadi | `lemur` | waktos, daptar tugas, fokus, suréléktronik, catetan |
+| Rebo | Téknologi & Asisten AI | `owl` | agén, LLM, MCP, kanal, otomasi (asal bébas data rahasia) |
+| Kemis | **Tutorial: Nyiapkeun Asisten AI** (seri) | `singa` | seri `setup-ai-agent`, unggal Kemis hiji bagian |
+| Juma'ah | Komunikasi & Nulis | `lemur` | pangumuman, surat, ringkesan, bahan pelatihan |
+| Saptu | Studi Kasus & Tips Praktis | `owl` | conto pamakéan, kasalahan anu sering, tips |
+| Minggu | Ringkesan / Tanya-Jawab | `gajah` | rangkuman minggu, patarosan anu sering muncul |
 
 Aturan: pilih topik anu **acan dibahas** (parios `posts/`), tuluy tandaan `[x] <tanggal>` di handap.
+
+**Anu nyerat téh agén spesialis, sanés Utsman** (Utsman = koordinator + QC + terbit + verifikasi).
+Serahkeun ku: `python3 /home/ubuntu/utsman-blog/susun.py --profil <AGEN> ...`
 
 **Larangan eusi (mutlak):** angka/krincian keuangan organisasi, data pribadi warga,
 kredensial (API key/token), alamat IP/nama server, nomer rekening/telepon, isi percakapan.

@@ -33,7 +33,13 @@ if ! head -1 "$f" | grep -q -- '^---'; then
   echo "Peringatan: berkas teu dimimitian ku frontmatter '---' (title, date, lang)." >&2
 fi
 
-# 0) saringan kaamanan eusi — tulisan anu ngandung data rahasia DIBATALKEUN
+# 0a) saringan gaya (antislop) — eusi anu bau AI DIBATALKEUN
+if ! python3 /home/ubuntu/utsman-blog/antislop.py "$f"; then
+  echo "Publikasi dibatalkeun ku saringan gaya (antislop)." >&2
+  exit 1
+fi
+
+# 0b) saringan kaamanan eusi — tulisan anu ngandung data rahasia DIBATALKEUN
 if ! python3 /home/ubuntu/utsman-blog/guard.py "$f"; then
   echo "Publikasi dibatalkeun ku saringan kaamanan eusi." >&2
   exit 1
