@@ -91,7 +91,7 @@ Judul seri (per basa):
 - [ ] Narékahan pagawéan rutin nganggo otomasi kajadwalan
 - [ ] Naha asisten leuwih saé dijalankeun di server sorangan
 - [ ] Kumaha carana mariksa hasil pagawéan asisten
-- [ ] Nyerat paréntah anu jelas (jeung anu sok gagal)
+- [x] 2026-10-07 — Nyerat paréntah anu jelas (jeung anu sok gagal)
 - [ ] Ngalatih asisten ku conto, sanés ku paréntah panjang
 - [ ] Kanal komunikasi: WhatsApp, Telegram, surélék — iraha maké nu mana
 - [ ] Ngukur manfaat asisten: naon anu kudu dihitung
