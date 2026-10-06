@@ -419,6 +419,15 @@ def kaca(judul, deskripsi, kanonik, eusi, ui, lang="id", ld=None, tambahan="", a
 <meta name="theme-color" content="#101c33">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="{og_type}">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BTLVPZ0HXY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BTLVPZ0HXY');
+</script>
 <meta property="og:site_name" content="Utsman">
 <meta property="og:url" content="{kanonik}">
 <meta property="og:title" content="{html.escape(judul)}">
