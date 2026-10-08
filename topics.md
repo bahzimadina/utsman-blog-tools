@@ -98,7 +98,7 @@ Judul seri (per basa):
 
 ## Juma'ah — Komunikasi & Nulis
 
-- [ ] Nyerat pangumuman anu kaharti ku sakur jalma
+- [x] 2026-10-09 — Nyerat pangumuman anu kaharti ku sakur jalma
 - [ ] Nyusun surat resmi (jeung kasalahan anu sok diulang)
 - [ ] Ngarobih catetan pribadi jadi tulisan anu kenging dibaca batur
 - [ ] Nyieun ringkesan rapat anu aya kaputusanana
