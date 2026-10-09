@@ -107,7 +107,7 @@ Judul seri (per basa):
 
 ## Saptu — Studi Kasus & Tips Praktis
 
-- [ ] Nyieun pituduh gancang (cheat sheet) pikeun alat anu sering dipaké
+- [x] 2026-10-10 — Nyieun pituduh gancang (cheat sheet) pikeun alat anu sering dipaké
 - [ ] Ngatur gambar jeung dokumén hasil kagiatan
 - [ ] Nyusun rencana tilu bulan pikeun kagiatan organisasi
 - [ ] Ngajarkeun batur maké alat anyar tanpa nyieun bosen
