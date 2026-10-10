@@ -47,7 +47,7 @@ ATURAN EUSI (WAJIB — aya saringan kaamanan anu NGABATALKEUN):
 
 FORMAT (saban berkas — id, en, su):
 ---
-title: <judul dina basa éta>
+title: "<judul dina basa éta>"   # WAJIB maké tanda kutip "…", komo lamun judulna aya ":" 
 date: {tanggal}
 slug: <slug-berkas, hurup leutik, tanda hubung>
 lang: <id|en|su>
@@ -64,10 +64,11 @@ SANGGEUS NULIS — pariksa sorangan, ulah ukur ngandelkeun rarasaan:
 1. Jalankeun pikeun saban berkas:
    `python3 /home/ubuntu/utsman-blog/antislop.py <berkas>` → kudu "gaya bersih (antislop)"
    `python3 /home/ubuntu/utsman-blog/guard.py <berkas>` → kudu "bersih"
+   `python3 /home/ubuntu/utsman-blog/cek-frontmatter.py <berkas>` → kudu "frontmatter bener"
 2. Upami aya nu nyegat, pundut frasana tuluy uji deui. Ulah ngalaporkeun hasil anu can lulus.
 
 BALESAN AKHIR (ringkes, maks 6 baris): judul katilu basa, ngaran berkas, jeung hasil
-dua saringan éta pikeun saban berkas.
+tilu saringan éta pikeun saban berkas.
 """
 
 SERI_BLOK = """
@@ -134,7 +135,7 @@ def main():
     print(f"\n→ pariksa {len(berkas)} berkas:")
     for f in berkas:
         isi = open(f, encoding="utf-8").read()
-        for saringan in ("antislop.py", "guard.py"):
+        for saringan in ("antislop.py", "guard.py", "cek-frontmatter.py"):
             r = subprocess.run(["python3", f"/home/ubuntu/utsman-blog/{saringan}", f],
                                capture_output=True, text=True)
             if r.returncode != 0:
@@ -157,7 +158,7 @@ def main():
     if len([k for k in basa if k in ("id", "en", "su")]) < 3:
         print("\n⛔ GAGAL: can aya tilu basa (id/en/su).")
         return 1
-    print("\n✓ Tilu basa aya, duanana saringan lulus. Siap diterbitkeun.")
+    print("\n✓ Tilu basa aya, tilu saringan (gaya, kaamanan, frontmatter) lulus. Siap diterbitkeun.")
     return 0
 
 
