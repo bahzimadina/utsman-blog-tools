@@ -45,6 +45,13 @@ if ! python3 /home/ubuntu/utsman-blog/guard.py "$f"; then
   exit 1
 fi
 
+# 0c) frontmatter YAML kudu bener — lamun ruksak, gen.py gagal SENYAP (tulisan en/su
+#     kacatet salaku id). Mis. judul ngandung ":" kudu dikutip.
+if ! python3 /home/ubuntu/utsman-blog/cek-frontmatter.py "$f"; then
+  echo "Publikasi dibatalkeun: frontmatter ruksak." >&2
+  exit 1
+fi
+
 cp "$f" "$REPO/posts/$nama"
 cd "$REPO"
 # singkronkeun heula (bisi aya parobahan ti tempat séjén) supaya push teu ditolak
