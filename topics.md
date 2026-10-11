@@ -59,7 +59,7 @@ Judul seri (per basa):
 
 ## Senén — Administrasi & Organisasi
 
-- [ ] Nyusun standar operasi (SOP) sederhana pikeun kagiatan rutin
+- [x] 2026-10-12 — Nyusun standar operasi (SOP) sederhana pikeun kagiatan rutin
 - [x] 2026-10-05 — arsip digital
 - [ ] Nyiapkeun rapat anu teu lila teuing (jeung anu teu kaluar topik)
 - [ ] Nyieun daptar hadir jeung rekap kagiatan tanpa ribet
