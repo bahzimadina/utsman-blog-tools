@@ -45,7 +45,7 @@ Judul seri (per basa):
 | 10 | Perawatan, evaluasi, dan langkah berikutnya |
 
 - [x] 2026-10-05 — Bagian 1 (dipedalkeun)
-- [ ] Bagian 2
+- [x] 2026-10-15 — Bagian 2 (dipedalkeun)
 - [ ] Bagian 3
 - [ ] Bagian 4
 - [ ] Bagian 5
