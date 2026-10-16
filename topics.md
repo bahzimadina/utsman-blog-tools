@@ -107,8 +107,8 @@ Judul seri (per basa):
 
 ## Saptu — Studi Kasus & Tips Praktis
 
+- [x] 2026-10-17 — Ngatur gambar jeung dokumén hasil kagiatan
 - [x] 2026-10-10 — Nyieun pituduh gancang (cheat sheet) pikeun alat anu sering dipaké
-- [ ] Ngatur gambar jeung dokumén hasil kagiatan
 - [ ] Nyusun rencana tilu bulan pikeun kagiatan organisasi
 - [ ] Ngajarkeun batur maké alat anyar tanpa nyieun bosen
 - [ ] Nyieun daptar pariksa (checklist) sateuacan kagiatan gedé
