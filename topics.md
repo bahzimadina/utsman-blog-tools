@@ -74,7 +74,7 @@ Judul seri (per basa):
 
 - [x] 2026-10-13 — Nyusun daptar tugas anu réalistis (jeung anu teu)
 - [x] 2026-10-06 — Tilu cara ngeureunkeun pagawéan anu sok katalangsara
-- [ ] Ngokolakeun waktos antara pagawéan kantor jeung urusan pribadi
+- [x] 2026-10-20 — Ngokolakeun waktos antara pagawéan kantor jeung urusan pribadi
 - [ ] Nyatet ide gancang supaya teu poho
 - [ ] Ngarapihkeun surélék anu numpuk
 - [ ] Nyiapkeun bahan presentasi dina sajam
