@@ -63,7 +63,7 @@ Judul seri (per basa):
 - [x] 2026-10-05 — arsip digital
 - [x] 2026-10-19 — Nyiapkeun rapat anu teu lila teuing (jeung anu teu kaluar topik)
 - [ ] Nyieun daptar hadir jeung rekap kagiatan tanpa ribet
-- [x] 2026-10-26 — Nyusun jadwal kagiatan organisasi anu teu bentrok
+- [x] 2026-10-26 — Nyusun jadwal kagiatan organisasi anu teu bentrok (dipedalkeun)
 - [ ] Nyieun laporan kegiatan anu cukup hiji halaman
 - [ ] Ngokolakeun surat asup jeung kaluar
 - [ ] Nyieun pituduh tugas pikeun relawan anyar
