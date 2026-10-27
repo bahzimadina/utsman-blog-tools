@@ -86,7 +86,7 @@ Judul seri (per basa):
 ## Rebo — Téknologi & Asisten AI
 
 - [x] 2026-10-05 — seri Bagian 1 (téhnologi)
-- [ ] Naha asisten peryogi sababaraha modél (LLM) anu béda
+- [x] 2026-10-28 — Naha asisten peryogi sababaraha modél (LLM) anu béda (dipedalkeun)
 - [ ] Peran MCP: nyambungkeun asisten jeung aplikasi pagawéan
 - [ ] Narékahan pagawéan rutin nganggo otomasi kajadwalan
 - [ ] Naha asisten leuwih saé dijalankeun di server sorangan
