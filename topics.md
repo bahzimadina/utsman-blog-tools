@@ -47,7 +47,7 @@ Judul seri (per basa):
 - [x] 2026-10-05 — Bagian 1 (dipedalkeun)
 - [x] 2026-10-15 — Bagian 2 (dipedalkeun)
 - [x] 2026-10-22 — Bagian 3 (dipedalkeun)
-- [ ] Bagian 4
+- [x] 2026-10-29 — Bagian 4
 - [ ] Bagian 5
 - [ ] Bagian 6
 - [ ] Bagian 7
