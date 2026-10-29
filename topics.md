@@ -101,7 +101,7 @@ Judul seri (per basa):
 - [x] 2026-10-09 — Nyerat pangumuman anu kaharti ku sakur jalma
 - [x] 2026-10-16 — Nyusun surat resmi (jeung kasalahan anu sok diulang)
 - [x] 2026-10-23 — Ngarobih catetan pribadi jadi tulisan anu kenging dibaca batur
-- [ ] Nyieun ringkesan rapat anu aya kaputusanana
+- [x] 2026-10-30 — Nyieun ringkesan rapat anu aya kaputusanana
 - [ ] Nyusun bahan pelatihan dina basa sapopoé
 - [ ] Nyiapkeun laporan pikeun donatur atanapi mitra
 
