@@ -120,4 +120,4 @@ Judul seri (per basa):
 - [x] 2026-10-11 — Rangkuman: naon anu paling ngabantuan minggu ieu
 - [x] 2026-10-18 — Patarosan anu sering muncul ngeunaan asisten AI
 - [x] 2026-10-25 — Kasalahan anu sering dilakukeun nalika mimiti maké asisten (dipedalkeun)
-- [ ] Rencana minggu hareup: tilu hal anu kudu dibéréskeun
+- [x] 2026-11-01 — Rencana minggu hareup: tilu hal anu kudu dibéréskeun (dipedalkeun)
