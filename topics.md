@@ -65,7 +65,7 @@ Judul seri (per basa):
 - [ ] Nyieun daptar hadir jeung rekap kagiatan tanpa ribet
 - [x] 2026-10-26 — Nyusun jadwal kagiatan organisasi anu teu bentrok (dipedalkeun)
 - [ ] Nyieun laporan kegiatan anu cukup hiji halaman
-- [ ] Ngokolakeun surat asup jeung kaluar
+- [x] 2026-11-02 — Ngokolakeun surat asup jeung kaluar: buku register, disposisi, jeung arsip
 - [ ] Nyieun pituduh tugas pikeun relawan anyar
 - [x] 2026-10-02 — nyatet keuangan
 - [x] 2026-10-05 — grup obrolan organisasi
