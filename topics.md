@@ -90,7 +90,7 @@ Judul seri (per basa):
 - [ ] Peran MCP: nyambungkeun asisten jeung aplikasi pagawéan
 - [ ] Narékahan pagawéan rutin nganggo otomasi kajadwalan
 - [ ] Naha asisten leuwih saé dijalankeun di server sorangan
-- [ ] Kumaha carana mariksa hasil pagawéan asisten
+- [x] 2026-11-04 — Kumaha carana mariksa hasil pagawéan asisten (verifikasi, ulah pékpercaya)
 - [x] 2026-10-07 — Nyerat paréntah anu jelas (jeung anu sok gagal)
 - [x] 2026-10-21 — Ngalatih asisten ku conto, sanés ku paréntah panjang
 - [ ] Kanal komunikasi: WhatsApp, Telegram, surélék — iraha maké nu mana
