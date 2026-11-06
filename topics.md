@@ -109,7 +109,7 @@ Judul seri (per basa):
 
 - [x] 2026-10-17 — Ngatur gambar jeung dokumén hasil kagiatan
 - [x] 2026-10-10 — Nyieun pituduh gancang (cheat sheet) pikeun alat anu sering dipaké
-- [ ] Nyusun rencana tilu bulan pikeun kagiatan organisasi
+- [x] 2026-11-07 — Nyusun rencana tilu bulan pikeun kagiatan organisasi
 - [x] 2026-10-31 — Ngajarkeun batur maké alat anyar tanpa nyieun bosen
 - [x] 2026-10-05 — daptar pariksa kagiatan gedé (geus aya vérsi basa Inggris waé:
   `2026-10-05-event-checklist.md`) — ulah dibahas deui
