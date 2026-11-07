@@ -49,7 +49,7 @@ FORMAT (saban berkas — id, en, su):
 ---
 title: "<judul dina basa éta>"   # WAJIB maké tanda kutip "…", komo lamun judulna aya ":" 
 date: {tanggal}
-slug: <slug-berkas, hurup leutik, tanda hubung>
+slug: <slug BASANA SORANGAN, hurup leutik, tanda hubung — kudu BÉDA pikeun id/en/su>
 lang: <id|en|su>
 pair: {pair}
 excerpt: <1–2 kalimat ringkesan>
@@ -58,7 +58,8 @@ draft: false
 {seri_frontmatter}---
 <eusi markdown: paragraf, ## subjudul, daptar sakedik, kutipan upami perlu — tanpa HTML mentah>
 
-Ngaran berkas: `{tanggal}-<slug>.md` (tilu berkas: hiji per basa).
+Ngaran berkas: `{tanggal}-<slug>.md` (tilu berkas: hiji per basa, slug béda unggal basa —
+lamun slug-na sarua, vérsi hiji basa bakal numpuk jeung mupus vérsi basa séjén dina /blog/).
 
 SANGGEUS NULIS — pariksa sorangan, ulah ukur ngandelkeun rarasaan:
 1. Jalankeun pikeun saban berkas:
@@ -131,6 +132,7 @@ def main():
         return 1
 
     basa = {}
+    slug_basa = {}
     gagal = []
     print(f"\n→ pariksa {len(berkas)} berkas:")
     for f in berkas:
@@ -143,6 +145,9 @@ def main():
         m = [l for l in isi.split("\n")[:12] if l.startswith("lang:")]
         if m:
             basa[m[0].split(":", 1)[1].strip()] = os.path.basename(f)
+        s = [l for l in isi.split("\n")[:12] if l.startswith("slug:")]
+        if s:
+            slug_basa[m[0].split(":", 1)[1].strip() if m else "?"] = s[0].split(":", 1)[1].strip()
 
     for kode in ("id", "en", "su"):
         tanda = "✓" if kode in basa else "✗ kurang"
@@ -157,6 +162,13 @@ def main():
         return 1
     if len([k for k in basa if k in ("id", "en", "su")]) < 3:
         print("\n⛔ GAGAL: can aya tilu basa (id/en/su).")
+        return 1
+    # slug kudu béda unggal basa — lamun sarua, gen.py nulis ka polder anu sarua
+    # sarta vérsi hiji basa numpuk/mupus vérsi basa séjén.
+    if len(set(slug_basa.values())) < len(slug_basa):
+        print("\n⛔ GAGAL: slug sarua pikeun sababaraha basa — kudu béda unggal basa:")
+        for k, v in sorted(slug_basa.items()):
+            print(f"   {k}: {v}")
         return 1
     print("\n✓ Tilu basa aya, tilu saringan (gaya, kaamanan, frontmatter) lulus. Siap diterbitkeun.")
     return 0
