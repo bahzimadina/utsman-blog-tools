@@ -77,7 +77,7 @@ Judul seri (per basa):
 - [x] 2026-10-20 — Ngokolakeun waktos antara pagawéan kantor jeung urusan pribadi
 - [x] 2026-10-27 — Nyatet ide gancang supaya teu poho (dipedalkeun)
 - [x] 2026-11-03 — Ngarapihkeun surélék anu numpuk
-- [ ] Nyiapkeun bahan presentasi dina sajam
+- [x] 2026-11-10 — Nyiapkeun bahan presentasi dina sajam (dipedalkeun)
 - [ ] Nyarita di hareupeun jalma: latihan tanpa ribet
 - [ ] Nginpokeun hasil pagawéan ka atasan sacara ringkas
 - [ ] Ngawasaan alat anu tos aya sateuacan néangan anu énggal
