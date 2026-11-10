@@ -93,7 +93,7 @@ Judul seri (per basa):
 - [x] 2026-11-04 — Kumaha carana mariksa hasil pagawéan asisten (verifikasi, ulah pékpercaya)
 - [x] 2026-10-07 — Nyerat paréntah anu jelas (jeung anu sok gagal)
 - [x] 2026-10-21 — Ngalatih asisten ku conto, sanés ku paréntah panjang
-- [ ] Kanal komunikasi: WhatsApp, Telegram, surélék — iraha maké nu mana
+- [x] 2026-11-11 — Kanal komunikasi: WhatsApp, Telegram, surélék — iraha maké nu mana
 - [x] 2026-10-14 — Ngukur manfaat asisten: naon anu kudu dihitung
 
 ## Juma'ah — Komunikasi & Nulis
