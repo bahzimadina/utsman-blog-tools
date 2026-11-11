@@ -49,7 +49,7 @@ Judul seri (per basa):
 - [x] 2026-10-22 — Bagian 3 (dipedalkeun)
 - [x] 2026-10-29 — Bagian 4
 - [x] 2026-11-05 — Bagian 5
-- [ ] Bagian 6
+- [x] 2026-11-12 — Bagian 6 (otomasi terjadwal)
 - [ ] Bagian 7
 - [ ] Bagian 8
 - [ ] Bagian 9
