@@ -103,7 +103,7 @@ Judul seri (per basa):
 - [x] 2026-10-23 — Ngarobih catetan pribadi jadi tulisan anu kenging dibaca batur
 - [x] 2026-10-30 — Nyieun ringkesan rapat anu aya kaputusanana
 - [x] 2026-11-06 — Nyusun bahan pelatihan dina basa sapopoé
-- [ ] Nyiapkeun laporan pikeun donatur atanapi mitra
+- [x] 2026-11-13 — Nyiapkeun laporan pikeun donatur atanapi mitra
 
 ## Saptu — Studi Kasus & Tips Praktis
 
