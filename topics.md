@@ -115,6 +115,7 @@ Judul seri (per basa):
   `2026-10-05-event-checklist.md`) — ulah dibahas deui
 - [x] 2026-10-24 — Nyiapkeun pangganti upami pangurus teu aya (dipedalkeun)
 - [x] 2026-11-14 — Studi kasus: serah terima pagawean antar-pangurus sangkan taya nu leungit
+- [x] 2026-11-21 — Tips praktis: ngatur tugas rutin mingguan sangkan taya nu kaliwat
 
 ## Minggu — Ringkesan / Tanya-Jawab
 
