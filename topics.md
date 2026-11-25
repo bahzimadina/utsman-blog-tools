@@ -50,7 +50,7 @@ Judul seri (per basa):
 - [x] 2026-10-29 — Bagian 4
 - [x] 2026-11-05 — Bagian 5
 - [x] 2026-11-12 — Bagian 6 (otomasi terjadwal)
-- [ ] Bagian 7
+- [x] 2026-11-26 — Bagian 7 (mengatur akses & kaamanan)
 - [ ] Bagian 8
 - [ ] Bagian 9
 - [ ] Bagian 10
