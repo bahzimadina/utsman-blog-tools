@@ -104,6 +104,7 @@ Judul seri (per basa):
 - [x] 2026-10-30 — Nyieun ringkesan rapat anu aya kaputusanana
 - [x] 2026-11-06 — Nyusun bahan pelatihan dina basa sapopoé
 - [x] 2026-11-13 — Nyiapkeun laporan pikeun donatur atanapi mitra
+- [x] 2026-11-27 — Nulis talatah singket anu jelas tur karaos manusa (sanes siga mesin)
 
 ## Saptu — Studi Kasus & Tips Praktis
 
