@@ -37,6 +37,10 @@ ATURAN GAYA (WAJIB — aya saringan otomatis anu NGABATALKEUN):
   "Feel free to", "game-changer", "unlock the power", "Mangga urang", "Salaku asisten".
 - Ulah ngagunakeun daptar pélor kaleuleuwihi: sahenteuna satengah artikel kudu paragraf.
 - Panjang 350–600 kecap PER BASA. Katiluna mawa eusi anu sarua (tarjamahan), sanés ringkesan.
+- **Basa per berkas WAJIB bener:** vérsi `lang: id` dina **basa Indonésia**, `lang: en` dina
+  **basa Inggris**, `lang: su` dina **basa Sunda**. Vérsi `id` jeung `su` TEU MEUNANG sarua/identik.
+  Saringan otomatis TEU mariksa basa eusi — Utsman bakal ngabandingkeun bodi `id` jeung `su`;
+  lamun sarua atawa vérsi `id` kabawa basa Sunda, hasilna DITOLAK sarta dipénta diulang.
 
 ATURAN EUSI (WAJIB — aya saringan kaamanan anu NGABATALKEUN):
 - DILARANG: angka/rincian keuangan organisasi, ngaran jeung data pribadi (nomer telepon,
